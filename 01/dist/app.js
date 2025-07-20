@@ -9,7 +9,7 @@ Person object továbbgondolása:
 var CURRENT_YEAR = new Date().getFullYear();
 var MALE = 'male';
 var FEMALE = 'female';
-var DUMMY_TEXT_FEMALE = 'Csodálatosan nézel ki ma is...';
+var GREET_TEXT_FEMALE = 'Csodálatosan nézel ki ma is...';
 var MSG_HOBBIES = 'Ezek nagyszerű hobbik: ';
 var MSG_HOBBY = 'Ez nagyszerű hobbi: ';
 var MSG_NO_HOBBY = 'Elkeseredve látom h nincs semmilyen hobbid. Próbáld ki a programozást!';
@@ -58,12 +58,9 @@ var Person = /** @class */ (function () {
         return "".concat(this.familyName, " ").concat(this.firstName);
     };
     Person.prototype.getGreetingStr = function () {
-        var dummyText;
+        var dummyText = '';
         if (this.sex === Sex.Female) {
-            dummyText = DUMMY_TEXT_FEMALE;
-        }
-        else {
-            dummyText = '';
+            dummyText = GREET_TEXT_FEMALE;
         }
         return "Hello ".concat(this.getFullName(), "! ").concat(dummyText);
     };

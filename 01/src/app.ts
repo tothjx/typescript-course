@@ -10,7 +10,7 @@ Person object továbbgondolása:
 const CURRENT_YEAR = new Date().getFullYear();
 const MALE = 'male';
 const FEMALE = 'female';
-const DUMMY_TEXT_FEMALE = 'Csodálatosan nézel ki ma is...';
+const GREET_TEXT_FEMALE = 'Csodálatosan nézel ki ma is...';
 const MSG_HOBBIES = 'Ezek nagyszerű hobbik: ';
 const MSG_HOBBY = 'Ez nagyszerű hobbi: ';
 const MSG_NO_HOBBY = 'Elkeseredve látom h nincs semmilyen hobbid. Próbáld ki a programozást!';
@@ -96,12 +96,10 @@ class Person
 
     getGreetingStr(): string
     {
-        let dummyText: string;
+        let dummyText: string = '';
 
         if (this.sex === Sex.Female) {
-            dummyText = DUMMY_TEXT_FEMALE;
-        } else {
-            dummyText = '';
+            dummyText = GREET_TEXT_FEMALE;
         }
 
         return `Hello ${this.getFullName()}! ${dummyText}`;
