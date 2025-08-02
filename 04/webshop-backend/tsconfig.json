@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "baseUrl": "./src",
+        "paths": {
+          "@interfaces/*": ["./src/interfaces/*"],
+          "@models/*": ["./src/models/*"],
+          "@services/*": ["./src/services/*"],
+        },
+        "sourceMap": false,
+        "noImplicitAny": true,
+        "module": "es2015",
+        "target": "es5",
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
