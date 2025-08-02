@@ -1,6 +1,5 @@
-import { Product } from "@models/Product";
-import { Order } from "@models/Order";
-import { getUnid } from "@services/getUnid";
+import { Product } from "./Product";
+import { Order } from "./Order";
 
 export class User
 {
@@ -15,9 +14,8 @@ export class User
         this.email = email;
     }
 
-    public makeOrder(products: Product[]): Order
+    public makeOrder(id: string, products: Product[]): Order
     {
-        let id = getUnid();
         return new Order(id, products);
     }
 }
