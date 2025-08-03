@@ -1,5 +1,7 @@
 import { Product } from "./Product";
 import { Order } from "./Order";
+import { InventoryService } from "../services/InventoryService";
+import { getID } from "../services/getID";
 
 export class User
 {
@@ -14,8 +16,13 @@ export class User
         this.email = email;
     }
 
-    public makeOrder(id: string, products: Product[]): Order
+    public makeOrder(products: Product[], is: InventoryService): void
     {
-        return new Order(id, products);
+        products.forEach((product: Product) => {
+            is.removeProductById(product.id);
+        });
+
+        let newOrder: Order = new Order(getID(), this.id, products);
+        is.addOrder(newOrder);
     }
 }

@@ -1,13 +1,16 @@
 import { Order } from "./Order.js";
-var User = /** @class */ (function () {
-    function User(id, name, email) {
+import { getID } from "../services/getID.js";
+export class User {
+    constructor(id, name, email) {
         this.id = id;
         this.name = name;
         this.email = email;
     }
-    User.prototype.makeOrder = function (id, products) {
-        return new Order(id, products);
-    };
-    return User;
-}());
-export { User };
+    makeOrder(products, is) {
+        products.forEach((product) => {
+            is.removeProductById(product.id);
+        });
+        let newOrder = new Order(getID(), this.id, products);
+        is.addOrder(newOrder);
+    }
+}

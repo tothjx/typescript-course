@@ -1,6 +1,6 @@
 import { Product } from "./Product";
 
-enum Status {
+export enum Status {
     NEW = 'új',
     UNDER_PROCESSING = 'feldolgozás alatt',
     DELIVERED = 'kiszállítva'
@@ -10,12 +10,14 @@ export class Order
 {
     public id: string;
     public products: Product[];
+    private idUser: string;
     private _status: Status;
 
-    constructor(id: string, products: Product[])
+    constructor(id: string, idUser: string, products: Product[])
     {
         this.id = id;
         this.products = products;
+        this.idUser = idUser;
         this._status = Status.NEW;
     }
 
