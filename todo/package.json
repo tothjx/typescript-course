@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "build": "npx tsc",
+        "start": "node dist/app.js",
+        "dev": "tsc --watch"
+    },
+    "dependencies": {
+        "uuid": "^11.1.0"
+    }
+}

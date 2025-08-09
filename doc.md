@@ -8,10 +8,8 @@ npx tsc
 tsc --watch
 </pre>
 
-
 ## Mi a TypeScript?
 A TypeScript egy nyílt forráskódú programozási nyelv, amelyet a Microsoft fejlesztett ki. A JavaScript szuperszettjeként működik, ami azt jelenti, hogy minden érvényes JavaScript kód érvényes TypeScript kód is, de a TypeScript többletfunkciókkal és lehetőségekkel bővíti a JavaScriptet.
-
 
 ## A TypeScript alapelvei
 **Statikus típusellenőrzés**: A TypeScript egyik legfontosabb jellemzője a statikus típusellenőrzés. Ez azt jelenti, hogy a változók és funkciók típusait a kód írásakor definiálod, aminek köszönhetően a fordítási időben azonosíthatók a típusokkal kapcsolatos hibák.
@@ -19,7 +17,6 @@ A TypeScript egy nyílt forráskódú programozási nyelv, amelyet a Microsoft f
 **Objektumorientált programozás**: A TypeScript teljes körű támogatást nyújt az objektumorientált programozási paradigmának, beleértve az osztályokat, interfészeket, öröklődést és kapszulázást.
 
 **Kompatibilitás a javascript-el**: Mivel a TypeScript egy JavaScript szuperszett, teljes mértékben kompatibilis a meglévő JavaScript kóddal. Ez lehetővé teszi, hogy fokozatosan integrálódjon a meglévő projektekbe.
-
 
 ## A TypeScript előnyei
 **Jobb kódminőség és megbízhatóság**: A statikus típusellenőrzésnek köszönhetően a TypeScript képes csökkenteni a futásidejű hibák számát, mivel sok hibát már a fordítási időben ki lehet szűrni.
@@ -30,9 +27,7 @@ A TypeScript egy nyílt forráskódú programozási nyelv, amelyet a Microsoft f
 
 **Közösségi támogatás**: A TypeScript egy gyorsan növekvő közösséggel rendelkezik, és számos külső könyvtár és eszköz támogatja.
 
-
 ## TypeScript fordító konfigurálása (tsconfig.json)
-
 <pre>
 {
     "compilerOptions": {
@@ -48,7 +43,6 @@ A TypeScript egy nyílt forráskódú programozási nyelv, amelyet a Microsoft f
     ]
 }
 </pre>
-
 
 ## Alapvető konfigurációs opciók
 A tsconfig.json számos beállítást kínál, de itt néhány alapvetőre koncentrálunk, amelyek fontosak a frontend kód esetében:
@@ -66,7 +60,6 @@ Frontend projekt esetén fontos lehet további beállításokat hozzáadni, mint
 
 * **lib**: Megadhatod, hogy mely JavaScript API-kat és DOM típusdefiníciókat szeretnéd használni.
 * **strict**: Ha true, szigorúbb típusellenőrzést végez.
-
 
 ## Alapvető paraméterek
 * **target**: Ez határozza meg, hogy milyen ECMAScript verzióra fordítja a TypeScript a kódot. Ha modern böngészőkben szeretnéd futtatni a kódot, használhatod az "es5" vagy "es6" értéket. Például: <code>"target": "es5"</code>
@@ -231,7 +224,6 @@ Az IIFE hasznos lehet például modulok létrehozásához, ahol azonnal iniciali
 
 ## Összehasonlító megjegyzések
 Az alapvető típusok és a függvény típusok együtt nagyfokú rugalmasságot és szigorú típusellenőrzést tesznek lehetővé a TypeScript-ben, ami segít a kód karbantarthatóságának és olvashatóságának javításában. Az IIFE mintája pedig további struktúrát és rendszert visz a kódunkba, lehetővé téve a funkciók és változók izolálását.
-
 
 # FORDÍTÁS
 ## 1. TypeScript kód írása és fordítása
@@ -461,3 +453,24 @@ A TypeScript és a JavaScript kapcsolata kritikus a modern webfejlesztés szempo
 A TypeScript hozzáadott struktúrája és szigorúbb szintaxisa lehetővé teszi a kód olvashatóbbá és karbantarthatóbbá tételét, különösen nagy és bonyolult projektek esetén. Az IDE-k és a fejlesztőeszközök támogatása is erőteljesebb a TypeScript esetében, köszönhetően a típusbiztonságnak, amely több funkciót és bővítményt tesz lehetővé. Emellett a TypeScript támogatja az objektum-orientált programozási elemeket, mint az osztályok és interfészek, amelyek nem állnak rendelkezésre a tisztán JavaScript környezetben.
 
 A TypeScript használatának vannak hátrányai is. Például a tanulási görbéje meredek lehet a JavaScripthez képest, különösen azok számára, akik még nem járatosak a típusos nyelvekben. A TypeScript extra konfigurációt és felállítást igényel, mivel a TypeScript kódot JavaScriptre kell fordítani (transzpilerelni) a böngészőben vagy egy szerver segítségével.
+
+# ECMAScript 2023 és a TS
+Az ECMAScript 2023 (ES2023 vagy ES14) bevezetése jelentős változásokat hozott a JavaScript nyelvbe, amelyek a fejlesztők munkáját könnyítik meg. A JavaScript és a TypeScript közötti kapcsolat továbbra is szoros, a TypeScript az új JavaScript funkciókat gyorsan integrálja, biztosítva a fejlesztők számára azokat a statikus típusellenőrzési és objektum-orientált programozási képességeket, amelyek a TypeScript egyik legnagyobb előnyét jelentik.
+
+Az új JavaScript funkciók közé tartozik az Array.findLast() és Array.findLastIndex() metódusok, amelyek segítségével megkereshetjük egy tömb utolsó elemét, ami megfelel egy adott feltételnek. Ezenkívül az Object.groupBy() metódus lehetővé teszi objektumok egy tömbjének csoportosítását bizonyos tulajdonságok alapján. Az Array.toSpliced(), Array.toSorted(), és Array.toReversed() metódusok segítségével módosíthatjuk a tömböket anélkül, hogy megváltoztatnánk az eredeti tömböt, így elősegítve a funkcionális programozási elveket. Ezek a metódusok új tömböt hoznak létre a kívánt módosításokkal, nem módosítják az eredeti tömböt.
+
+A "Hashbang Grammar" is hivatalos támogatást kapott, ami elősegíti a JavaScript scriptek független futtathatóként való használatát Unix-alapú rendszereken. A Symbolok mostantól használhatók WeakMap kulcsokként, lehetővé téve több rugalmasságot a memória-optimalizálási előnyök kihasználásában.
+
+Ezen újítások mellett a JavaScript folyamatosan továbbfejlődik, és az ECMAScript specifikáció nagy szerepet játszik ebben az evolúcióban. A specifikáció gyakorlatilag "élő dokumentumnak" tekinthető, amely interaktív módon fejlődik, ahogy a nyelvet a valóságban használják. A TypeScript mindezeket a változásokat integrálja, lehetővé téve a fejlesztők számára, hogy kihasználják a JavaScript legújabb funkcióit, miközben élvezik a TypeScript által nyújtott további előnyöket, mint
+
+A JavaScript és a TypeScript kapcsolatát a folyamatos fejlődés és az új funkciók bevezetése jellemzi. A JavaScript, mint nyelv, dinamikusan fejlődik az ECMAScript specifikációk által, amelyek új funkciókat és fejlesztéseket vezetnek be évről évre.
+
+Az ECMAScript 2023 (ES2023 vagy ES14) bevezetése olyan új funkciókat hozott, mint például az Array.findLast() és Array.findLastIndex() metódusok, amelyekkel megkereshetjük a tömbök utolsó olyan elemét, ami megfelel egy meghatározott feltételnek. Ezek a metódusok az elemek vagy indexek keresését teszik lehetővé a tömb végéről kezdve, nem szükséges az elemek vagy indexek keresésekor a tömb megfordítása​​.
+
+A JavaScript 2023-as verziójában megjelent egyéb új funkciók közé tartozik az Object.groupBy() metódus, ami lehetővé teszi az objektumok tömbjének csoportosítását tulajdonságuk alapján, valamint az Array.toSpliced(), Array.toSorted(), és Array.toReversed() metódusok, amelyek új tömbökkel térnek vissza a forrástömb módosítása nélkül​​​​.
+
+A TypeScript továbbra is kompatibilis a JavaScript legújabb verziójával, lehetővé téve a fejlesztők számára, hogy a legújabb JavaScript funkciókat használják TypeScript kódban. Az új JavaScript funkciók gyakran először érhetők el a TypeScriptben, mivel a TypeScript fejlesztői aktívan követik az ECMAScript specifikációk fejlődését és gyorsan integrálják az új funkciókat.
+
+A TypeScript hozzáadott előnyei, mint a típusbiztonság és a kód szervezettsége, továbbra is előnyös választássá teszik a TypeScriptet nagyobb és bonyolultabb projektek fejlesztésére, míg a JavaScript széles körű használata és rugalmassága továbbra is ideális gyors prototípusok készítéséhez és implementáláshoz.
+
+<!-- /LESSON 1 -->
