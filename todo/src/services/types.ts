@@ -1,6 +1,5 @@
-// ez talan mehetne az interfaces-be, utils-ba is
+// ezt csak azert, hogy legyen pelda namespace hasznalatara is
 export namespace types {
-    type typeStr = string;
-    type typeDate = Date;
-    type todoTypes = typeStr | typeDate;
+    export type typeMsg = { message: string };
+    export type typeDate = { dueDate: Date };
 }

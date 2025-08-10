@@ -2,20 +2,19 @@
     "compilerOptions": {
         "outDir": "./dist",
         "baseUrl": "./src",
-        "paths": {
-            "@interfaces/*": ["./interfaces/*"],
-            "@models/*": ["./models/*"],
-            "@services/*": ["./services/*"]
-        },
         "sourceMap": false,
         "noImplicitAny": true,
-        "module": "commonjs",
+        "module": "es2020",
         "target": "es2020",
+        "moduleResolution": "bundler",
+        //"allowJs": true,
         "experimentalDecorators": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
+        "strict": false,
+        "noEmitOnError": true,
     },
     "include": [
         "./src/**/*"
@@ -25,3 +24,4 @@
         "dist"
     ]
 }
+
