@@ -6,6 +6,15 @@ tsc -v
 tsc --init
 npx tsc
 tsc --watch
+
+// min package.json
+{
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/app.js",
+        "dev": "tsc --watch"
+    }
+}
 </pre>
 
 ## Mi a TypeScript?
@@ -222,6 +231,19 @@ Az IIFE-t általában zárójelek közé tesszük, hogy a JavaScript értelmező
 
 Az IIFE hasznos lehet például modulok létrehozásához, ahol azonnal inicializálunk bizonyos kódot, anélkül, hogy a későbbiekben újra meghívnánk vagy hivatkoznánk rá.
 
+<pre>
+(function() {
+    var message = 'hahooo';
+    console.log(message);
+})();
+</pre>
+
+## Miért használjuk az IIFE-t?
+* **Névtér izoláció:** Az IIFE segítségével elkerülhetjük a globális névtér szennyezését, mivel minden változó és függvény, amit az IIFE-n belül definiálunk, lokális marad.
+* **Modularitás:** Az IIFE-k segítségével logikailag összetartozó kódokat csoportosíthatunk együtt anélkül, hogy befolyásolnák a külső kódot.
+* **Azonnali végrehajtás:** Az IIFE lehetővé teszi a kód azonnali végrehajtását, ami hasznos lehet inicializáló logika vagy setup kód esetében.
+* **Privát adatok:** Az IIFE-ket gyakran használják privát adatok és függvények létrehozására, amelyek nem érhetők el a külvilágból.
+
 ## Összehasonlító megjegyzések
 Az alapvető típusok és a függvény típusok együtt nagyfokú rugalmasságot és szigorú típusellenőrzést tesznek lehetővé a TypeScript-ben, ami segít a kód karbantarthatóságának és olvashatóságának javításában. Az IIFE mintája pedig további struktúrát és rendszert visz a kódunkba, lehetővé téve a funkciók és változók izolálását.
 
@@ -382,9 +404,7 @@ Absztrakciót az absztrakt osztályok és interfészek segítségével érhetjü
 
 <pre>
 interface IShape {
-    getArea(): number
-
-;
+    getArea(): number;
 }
 
 class Rectangle implements IShape {
@@ -474,3 +494,446 @@ A TypeScript továbbra is kompatibilis a JavaScript legújabb verziójával, leh
 A TypeScript hozzáadott előnyei, mint a típusbiztonság és a kód szervezettsége, továbbra is előnyös választássá teszik a TypeScriptet nagyobb és bonyolultabb projektek fejlesztésére, míg a JavaScript széles körű használata és rugalmassága továbbra is ideális gyors prototípusok készítéséhez és implementáláshoz.
 
 <!-- /LESSON 1 -->
+
+# TypeScript konstruktorok: teljes útmutató
+
+A konstruktorok kulcsfontosságú szerepet töltenek be az objektumorientált programozásban, mivel ezek azok a speciális metódusok, amelyek egy osztály példányosításakor automatikusan lefutnak. Ezek a metódusok felelősek az új objektum kezdeti állapotának beállításáért, azaz az adattagok (tulajdonságok és metódusok) inicializálásáért. A konstruktorok használatának szükségessége és működési mechanizmusa több okból is fontos:
+
+## 1. Adatok inicializálása
+A konstruktor lehetővé teszi, hogy az objektum létrehozásakor azonnal érvényes és koherens állapotba kerüljön. Ezáltal az objektum azonnal használható lesz, mivel a szükséges adatokkal már inicializálva lett. Például egy Book osztály esetében a konstruktor megkövetelheti a cím, szerző és kiadási év megadását, biztosítva, hogy minden Book objektum ezekkel az adatokkal rendelkezzen.
+
+## 2. Kód újrafelhasználás és rendezettség
+A konstruktorok segítségével központosított helyen kezelhetjük az objektumok inicializálásával kapcsolatos logikát, ami növeli a kód újrafelhasználhatóságát és olvashatóságát. Ezáltal elkerülhető a redundancia és a kód szétaprózódása.
+
+## 3. Paraméterezhetőség
+A konstruktorok paramétereket fogadhatnak, lehetővé téve az objektumok finomhangolását és testreszabását létrehozásukkor. Ez a rugalmasság kulcsfontosságú lehet, amikor különböző kezdeti állapotokkal rendelkező objektumokra van szükség.
+
+## Konstruktorok működése
+A konstruktorok automatikusan meghívódnak, amikor egy új objektumot hozunk létre a new kulcsszó segítségével. A TypeScript és más objektumorientált nyelvek esetében a konstruktor a constructor kulcsszót használja.
+
+A konstruktorok nélkülözhetetlenek az objektumorientált programozásban, mivel lehetővé teszik az objektumok azonnali és koherens kezdeti állapotba helyezését, elősegítik a kód újrafelhasználását és olvashatóságát, valamint lehetőséget biztosítanak az objektumok paraméterezett létrehozására.
+
+# Getters és setters
+A TypeScriptben a getterek és setterek speciális függvények, amelyek lehetővé teszik, hogy egy osztály tulajdonságainak olvasása és írása kontrollált módon történjen. A getter egy tulajdonság értékének lekérdezésére szolgál, míg a setter lehetővé teszi egy tulajdonság értékének beállítását bizonyos feltételek mellett.
+
+## Getter és setter a Book osztályban
+Tegyük fel, hogy a Book osztályban szeretnénk biztosítani, hogy a könyv címe és kiadási éve csak bizonyos feltételek mellett változtatható. Ezt getterek és setterek segítségével érhetjük el.
+
+<pre>
+class Book {
+    private _title: string;
+    private _author: string;
+    private _year: number;
+
+    constructor(title: string, author: string, year: number) {
+        this._title = title;
+        this._author = author;
+        this._year = year;
+    }
+
+    get title(): string {
+        return this._title;
+    }
+
+    set title(newTitle: string) {
+        if (newTitle && newTitle.length > 0) {
+            this._title = newTitle;
+        } else {
+            console.error("Invalid title");
+        }
+    }
+
+    get year(): number {
+        return this._year;
+    }
+
+    set year(newYear: number) {
+        if (newYear > 0) {
+            this._year = newYear;
+        } else {
+            console.error("Invalid year");
+        }
+    }
+}
+
+let myBook = new Book('The Great Gatsby', 'F. Scott Fitzgerald', 1925);
+
+// Privát tulajdonsághoz való hozzáférés kísérlete
+// console.log(myBook._title); // nem mukodik -> _title private
+console.log(myBook.title); // mukodik -> getter
+</pre>
+
+**Magyarázat:**
+* A title és year tulajdonságok priváttá váltak (_title, _year), ami azt jelenti, hogy közvetlenül nem érhetők el az osztályon kívülről.
+* A get title() metódus lehetővé teszi a könyv címének lekérdezését anélkül, hogy közvetlenül hozzáférnénk a privát _title tulajdonsághoz.
+* A set title(newTitle: string) metódus lehetővé teszi a cím módosítását, de csak akkor, ha a megadott új cím érvényes (nem üres).
+* Hasonlóan, a get year() és set year(newYear: number) metódusok a kiadási év lekérdezésére és beállítására szolgálnak, bizonyos validálási logikával.
+
+## Getter és setter a Library osztályban
+A Library osztály esetében is hozzáadhatunk gettereket és settereket, például a könyvtár nevének biztonságos kezelésére.
+
+<pre>
+class Library {
+    private _name: string;
+    private books: Book[];
+
+    constructor(name: string) {
+        this._name = name;
+        this.books = [];
+    }
+
+    get name(): string {
+        return this._name;
+    }
+
+    set name(newName: string) {
+        if (newName && newName.length > 0) {
+            this._name = newName;
+        } else {
+            console.error("Invalid library name");
+        }
+    }
+
+    // ...
+}
+</pre>
+**Magyarázat:**
+* A name tulajdonság priváttá válik (_name), így csak a getter és setter metódusokon keresztül érhető el és módosítható.
+* A get name() metódus a könyvtár nevének lekérdezésére szolgál.
+* A set name(newName: string) metódus a könyvtár nevének módosítására szolgál, de csak akkor, ha az új név érvényes.
+* A TypeScriptben a getterek és setterek meghívása olyan, mintha hozzáférnénk egy nyilvános tulajdonsághoz. Ez azt jelenti, hogy nem kell külön függvényhívás szintaxist használnunk; helyette közvetlenül hivatkozunk a tulajdonság nevére. A private és protected módosítók használatakor a tulajdonságok vagy metódusok csak az adott osztályon belül, illetve az esetében a leszármazott osztályokban is elérhetők.
+
+## private és protected tulajdonságok
+Amikor egy tulajdonságot private vagy protected módosítóval látunk el, az azt jelenti, hogy ezek a tulajdonságok nem érhetők el közvetlenül az osztályon kívülről.
+
+<pre>
+class Book {
+    private _title: string;
+    // További kód ...
+
+    get title(): string {
+        return this._title;
+    }
+
+    // ...
+}
+
+let myBook = new Book('The Great Gatsby', 'F. Scott Fitzgerald', 1925);
+</pre> 
+
+A protected módosító hasonlóan működik, de lehetővé teszi a tulajdonság használatát az osztály leszármazottaiban is.
+
+<pre>
+class Book {
+    protected year: number;
+    // ...
+}
+
+class ExtendedBook extends Book {
+    getYear() {
+        return this.year; // lehetseges mert a year protected
+    }
+}
+</pre>
+
+A _name tulajdonság külső elérésének korlátozása, és csak a name getteren és setteren keresztül történő hozzáférés engedélyezése, az objektumorientált programozás (OOP) alapvető elvéhez, az egységbe záráshoz (encapsulation) kapcsolódik. Az encapsulation elve szerint egy osztály belső állapotát és implementációs részleteit el kell rejteni az osztály felhasználói elől, így csak a kívülről látható interfész (publikus metódusok és tulajdonságok) révén interaktálhatnak az osztállyal. Ez több előnnyel is jár:
+
+## 1. Adatok integritásának megőrzése
+A setter metódusok lehetővé teszik, hogy validációs logikát alkalmazzunk a beállítandó értékekre. Például, ha a _name tulajdonságot csak egy setteren keresztül lehet beállítani, akkor a setter ellenőrizheti, hogy a megadott név nem üres-e, vagy hogy megfelel-e bizonyos formai követelményeknek. Ez megakadályozza az osztály érvénytelen vagy inkonzisztens állapotba kerülését.
+
+## 2. Rugalmasság és karbantarthatóság
+A getterek és setterek használatával az osztály felülete nem változik, még akkor sem, ha a belső implementáció megváltozik. Például, ha később úgy döntünk, hogy a _name helyett egy teljes név (fullName) tárolására van szükségünk, a getter és setter módosítható anélkül, hogy a külső kódokat, amelyek ezt az osztályt használják, módosítani kellene. Ez a rugalmasság segít az osztályok fejlődésében anélkül, hogy a felhasználói kódjukat folyamatosan frissíteni kellene.
+
+## 3. Biztonság
+A privát és védett tulajdonságok, mint a _name, elrejtése segít megakadályozni, hogy a külső kódok véletlenül vagy szándékosan káros módon módosítsák az objektum állapotát. Ez a biztonsági réteg segít megőrizni az objektum integritását és az alkalmazás stabilitását.
+
+## 4. Absztrakció
+Az absztrakció elve azt jelenti, hogy az osztály csak azokat a részleteket teszi közzé, amelyek szükségesek a felhasználók számára, és elrejti a komplexitását. A getterek és setterek lehetővé teszik az osztályok számára, hogy egy egyszerű és érthető interfészt biztosítsanak, miközben elrejtik a belső állapotuk kezelésének bonyolultságát.
+
+# Absztrakt osztályok
+Az absztrakt osztályok olyan osztályok a TypeScriptben, amelyek nem példányosíthatók közvetlenül. Céljuk, hogy alapot biztosítsanak a leszármazott osztályok számára, amelyek implementálják a megadott absztrakt metódusokat. Az absztrakt osztályok kiváló eszközök a közös interfész vagy implementáció megadásához, miközben megakadályozzák az osztály közvetlen példányosítását. Az abstract metódusok olyan metódusok, amelyek nincsenek implementálva az absztrakt osztályban, helyettük a leszármazott osztályokban kell megvalósítani őket.
+
+<pre>
+abstract class Animal {
+    abstract speak(): void;
+
+    walk(): void {
+        console.log("Walking");
+    }
+}
+
+class Dog extends Animal {
+    speak(): void {
+        console.log("Bark!");
+    }
+}
+
+// const myAnimal = new Animal(); // hiba: nem példányosítható
+const myDog = new Dog(); // Dog implementálja a speak metódust
+myDog.speak(); // Output: Bark!
+myDog.walk(); // Output: Walking
+</pre>
+
+## Absztrakt osztályok jelentősége
+* Kényszerítik az öröklési szerződést: Az absztrakt osztályok meghatározhatnak olyan absztrakt metódusokat, amelyeket minden leszármazott osztálynak implementálnia kell. Ez biztosítja, hogy minden leszármazott osztály rendelkezik egy meghatározott interfésszel.
+* Kód újrafelhasználás: Az absztrakt osztályok lehetővé teszik közös logika megosztását a leszármazott osztályok között a nem absztrakt metódusokon keresztül.
+* Polimorfizmus: Az absztrakt osztályok használatával polimorf viselkedést valósíthatunk meg, ahol egy interfész alatt különböző implementációkat rejthetünk.
+
+## Absztrakt metódusok
+
+<pre>
+abstract class Vehicle {
+    constructor(protected make: string, protected model: string) {}
+
+    // Absztrakt metódus
+    abstract displayDetails(): void;
+}
+
+class Car extends Vehicle {
+    constructor(make: string, model: string, private year: number) {
+        super(make, model);
+    }
+
+    displayDetails(): void {
+        console.log(`Car: ${this.make} ${this.model} - ${this.year}`);
+    }
+}
+
+// const myVehicle = new Vehicle("Toyota", "Corolla"); // hiba
+
+const myCar = new Car("Toyota", "Corolla", 2020);
+myCar.displayDetails(); // Output: Car: Toyota Corolla - 2020
+</pre>
+
+Ebben a példában a Vehicle egy absztrakt osztály, amely egy absztrakt displayDetails metódust definiál. A Car osztály, amely a Vehicle osztályból származik, konkrétan implementálja ezt a metódust, és ezzel megvalósítja a Vehicle által előírt szerződést.
+
+## Konstruktor túlterhelés (overloading)
+A konstruktor túlterhelés lehetővé teszi egy osztály számára, hogy több konstruktort definiáljon különböző paraméterszignatúrákkal. Ezáltal az osztály példányosítható különböző kezdeti adatokkal. A TypeScriptben a konstruktor túlterhelés közvetlenül nem támogatott, mint például a Java vagy C# nyelvekben. Ehelyett opcionális paraméterek vagy alapértelmezett értékek használatával érhetjük el a hasonló funkcionalitást.
+
+<pre>
+class Employee {
+    constructor(private name: string = "Névtelen", private id: number = 0, private email: string = "Nincs email") {}
+
+    // További metódusok és tulajdonságok
+}
+</pre>
+
+Ebben a példában egyetlen konstruktor van, amely opcionális paramétereket fogad. Ez lehetővé teszi az Employee osztály példányosítását különböző módokon:
+
+<pre>
+let employee1 = new Employee();
+let employee2 = new Employee("John Doe");
+let employee3 = new Employee("Jane Doe", 1, "jane.doe@example.com");
+</pre>
+
+<pre>
+class Employee1 {
+    constructor(private name: string = "Névtelen", private id: number = 0, private email: string = "Nincs email") {}
+
+    // További metódusok és tulajdonságok
+}
+
+let employee1 = new Employee1();  // Működik, mert mindhárom paraméternek van alapértelmezett értéke
+let employee2 = new Employee1("John Doe");  // Működik, mert a második és harmadik paraméter alapértelmezett
+let employee3 = new Employee1("Jane Doe", 1, "jane.doe@example.com");  // Működik, minden paramétert megadtál
+</pre>
+
+## Konstruktor felülírás (overriding)
+Konstruktor felülírás akkor fordul elő, amikor egy leszármazott osztály saját konstruktort definiál, amely eltér az ősosztály konstruktorától. TypeScriptben minden leszármazott osztálynak explicit módon meg kell hívnia az ősosztály konstruktorát a super kulcsszó használatával, ha az ősosztály rendelkezik konstruktorral.
+
+<pre>
+class Animal {
+    constructor(public name: string) {}
+}
+
+class Dog extends Animal {
+    constructor(name: string, public breed: string) {
+        super(name); // Hívja az Animal osztály konstruktorát
+    }
+}
+</pre>
+
+Ebben a példában a Dog osztály felülírja az Animal osztály konstruktorát, egy új paraméter (breed) hozzáadásával, miközben továbbra is megköveteli a name paramétert az ősosztály konstruktorából. A super(name) hívás biztosítja, hogy az Animal konstruktor is meghívásra kerüljön az inicializációs folyamat során.
+
+A Dog osztály példányosítása során közvetlenül meg kell adnod a konstruktorban szükséges paramétereket, amelyek ebben az esetben a kutya neve (name) és fajtája (breed). Mivel a Dog osztály az Animal osztályból származik, és a Dog konstruktora hívja az Animal konstruktorát a super(name) hívással, biztosítanod kell mindkét paramétert a Dog példány létrehozásakor. Így a kutya példányosítása a következőképpen történik:
+
+<pre>
+let myDog = new Dog("Rex", "Golden Retriever");
+</pre>
+
+Ebben a példában egy Dog típusú objektumot hozol létre, amelynek neve "Rex" és fajtája "Golden Retriever". A super(name) hívás biztosítja, hogy az Animal osztály konstruktora is megkapja a szükséges name paramétert, így az Animal osztály name tulajdonsága beállításra kerül "Rex"-re, míg a Dog osztály saját breed tulajdonsága beállításra kerül "Golden Retriever"-re.
+
+Ez a megközelítés lehetővé teszi, hogy a leszármazott osztályok kiegészítsék vagy módosítsák az ősosztályuk konstrukciós logikáját, egyúttal biztosítva az ősosztály által szükséges adatokat is.
+
+A **super** kulcsszó használata a leszármazott osztályok konstruktorában elengedhetetlen az objektumorientált programozásban, különösen a TypeScriptben és más nyelvekben, mint a Java vagy C#, amikor egy osztály egy másik osztályból származik (öröklődés). Ennek több oka van:
+
+* **1. Az ősosztály konstruktorának meghívása:** Amikor egy osztály egy másikból származik, az alaposztály (ősosztály) konstruktora nem hívódik meg automatikusan. A super kulcsszó használatával explicit módon meghívjuk az ősosztály konstruktorát, ami lehetővé teszi az ősosztály állapotának megfelelő inicializálását. Ez biztosítja, hogy az örökölt tulajdonságok megfelelően inicializálva legyenek az ősosztály logikája szerint.
+
+* **2. A származtatott osztály konstruktorának követelményei:** A TypeScript (és más statikusan típusos nyelvek) szigorú szabályokat alkalmaznak az öröklődésre, beleértve azt a követelményt, hogy ha egy leszármazott osztály rendelkezik konstruktorral, akkor annak meg kell hívnia az ősosztály konstruktorát a super kulcsszó segítségével, ha az ősosztály rendelkezik konstruktorral. Ez biztosítja az osztályhierarchia integritását és a példányok koherens állapotát.
+
+* **3. Paraméterek átadása az ősosztály konstruktorának:** A super hívás lehetővé teszi, hogy paramétereket adjunk át az ősosztály konstruktorának, ami különösen fontos, ha az ősosztály konstruktora kötelező paramétereket vár. Ez segít abban, hogy az ősosztály tulajdonságai megfelelően inicializálódjanak, és az öröklött metódusok azonnal használhatók legyenek a leszármazott osztály példányain.
+
+**Konstruktor túlterhelés (overloading):** A TypeScript nem támogatja közvetlenül a konstruktor túlterhelést. Azonban a hasonló funkcionalitást opcionális paraméterek és alapértelmezett értékek használatával érhetjük el, ami rugalmasságot biztosít az osztály példányosításakor.
+
+**Konstruktor felülírás (overriding):** A konstruktor felülírása lehetővé teszi egy leszármazott osztály számára, hogy saját konstruktort definiáljon, amely eltér az ősosztályétól. Minden leszármazott osztálynak, amely saját konstruktort definiál, meg kell hívnia az ősosztály konstruktorát a super kulcsszó segítségével.
+
+# Arrow Functions a TypeScriptben
+Az arrow functions az ECMAScript 6 (ES6) szabvány részeként jelentek meg, és azóta a modern JavaScript és TypeScript fejlesztés elengedhetetlen részévé váltak. Az arrow functions lehetővé teszik a funkcionális kifejezések rövidebb és tömörebb írását, valamint kezelik a this kulcsszó kontextusát különböző módon, mint a hagyományos függvények.
+
+## Miért használjuk?
+**Tömörebb szintaxis:** Az arrow functions rövidebb és olvashatóbb kódot tesznek lehetővé, különösen az inline függvények és callbackek esetén.
+
+**Nem kötik újra a this kulcsszavat:** Az arrow functions lexikálisan kötik a this értéket, ami azt jelenti, hogy a this a környezetükben lévő this-szel azonos. Ez megkönnyíti a kontextus kezelését olyan esetekben, mint eseménykezelők vagy időzítők használatakor.
+
+## Összevetés a hagyományos függvényekkel
+
+| szempont | hagyományos | arrow |
+|-------------------|-----------------------------------------------------------------|-------------------------------------------------------|
+| szintaxis | function functionName(params) { // Törzs } | const functionName = (params) => { // Törzs } |
+| `this` viselkedése| Minden függvényhívás újra köti a `this` értéket. | A `this` érték lexikálisan kötődik a környezethez. |
+| konstruktor | Használhatóak konstruktorok létrehozására. | Nem használhatóak konstruktorok létrehozására. |
+| prototype | Van prototype tulajdonsága, lehetőséget adva öröklődésre. | Nincs prototype tulajdonsága. |
+| argumentumok | Hozzáférhetnek az `arguments` objektumhoz. | Nem férhetnek hozzá az `arguments` objektumhoz. |
+
+## Mikor használunk arrow function-t?
+**Callback függvények:** Amikor egy rövid callback függvényt kell átadni argumentumként.
+
+**Inline függvények:** Egyszerű, egy soros műveletekhez, mint például egy tömb elemeinek átalakítása.
+
+**Eseménykezelők:** Amikor az eseménykezelők this kontextusát az aktuális osztály vagy komponens példányához szeretnénk kötni.
+
+## Argumentumok
+
+<pre>
+// hagyomanyos
+function showArguments() {
+    return Array.from(arguments).join(", ");
+}
+console.log(showArguments(1, 2, 3, 4));
+
+// arrow
+const showArguments = (...args) => args.join(", ");
+console.log(showArguments(1, 2, 3, 4));
+</pre>
+
+# Interface-ek a TypeScript-ben
+Az interface a TypeScript egyik kulcsfontosságú jellemzője, amely lehetővé teszi a kód struktúrájának szervezését és típusbiztonságának növelését. Egy interface olyan szerkezetet ír le, amely meghatározza, hogy egy objektumnak milyen tulajdonságai és metódusai lehetnek.
+
+<pre>
+interface Szemely {
+    nev: string;
+    kor: number;
+    nem?: string; // opcionális tulajdonság
+}
+</pre>
+
+Az interface definíciójában megadjuk a tulajdonságokat és azok típusait.
+Az opcionális tulajdonságokat a ? jelöli, ami azt jelenti, hogy ezek a tulajdonságok nem kötelezőek.
+
+## Objektumok definiálása Interface-szel
+
+Az interface-ek segítségével típusokat adhatunk meg objektumoknak.
+
+<pre>
+let diak: Szemely = {
+    nev: "Anna",
+    kor: 20
+};
+</pre>
+
+Az interface-eket paraméter típusokként is használhatjuk a függvényekben.
+
+<pre>
+function udvozles(szemely: Szemely): string {
+    return `Szia, ${szemely.nev}!`;
+}
+</pre>
+
+Az interface-ek kiterjeszthetőek, ami lehetővé teszi az újrahasznosíthatóságot és a kód struktúrájának további finomítását.
+
+<pre>
+interface Diak extends Szemely {
+    tanulmanyiSzam: string;
+}
+</pre>
+
+A TypeScriptben az interface és az object típus közötti alapvető különbség a rugalmasságban és a struktúrában rejlik. Az interface egy szerkezeti szerződés vagy sablon, amely meghatározza az objektumok alakját, míg az object típus egy konkrét objektumra utal.
+
+**Interface:**
+* Az interface egy olyan struktúra, amely meghatározza, hogy az objektumoknak milyen tulajdonságaik és metódusaik lehetnek.
+* Az interface-ek lehetővé teszik az öröklődést és a kiterjesztést.
+* Az interface-ek nem tartalmaznak adatokat vagy implementációt, csak a szerkezetet definiálják.
+
+**Object:**
+* Az object egy konkrét entitás, amely tényleges adatokat és implementációt tartalmaz.
+* Az object típusú változók tetszőleges objektumot tartalmazhatnak.
+
+## Interface vs object
+<pre>
+// Interface Definíció
+interface Car {
+    brand: string;
+    year: number;
+    start(): void;
+}
+
+// Objektum létrehozása az interface segítségével
+let car1: Car = {
+    brand: "Toyota",
+    year: 2020,
+    start() {
+        console.log(`${this.brand} started, year: ${this.year}.`);
+    }
+};
+
+car1.start(); // "Toyota started, year: 2020."
+
+// Object típus használata
+let car2: object = {
+    brand: "Honda",
+    year: 2018,
+    start() {
+        console.log(`${this.brand} started, year: ${this.year}.`);
+    }
+};
+
+// A 'brand' és 'year' tulajdonságok nem érhetők el a 'car2' objektumban,
+// mivel az 'object' típus nem definiál szerkezetet.
+// car2.brand; // Fordítási hiba
+
+// A 'car2' objektum típusát explicit módon kell meghatározni a hozzáféréshez.
+let concreteCar = car2 as { brand: string; year: number; start: () => void };
+concreteCar.start(); // "Honda started, year: 2018."
+</pre>
+
+Ebben a példában az interface egy szerkezetet határoz meg (Auto), amelyet az auto1 objektum követ. Az object típusú auto2 változó tetszőleges objektumot tartalmazhat, de annak tulajdonságaihoz explicit típuskonverziót kell használni. Az interface biztosítja a típusbiztonságot és előre meghatározott szerkezetet, míg az object típus rugalmasabb, de kevésbé szigorúan definiált.
+
+A TypeScript (TS) interfészek alapvető eszközei a típusok szervezésére és definiálására a TypeScript-ben. Ezek lehetővé teszik, hogy előre meghatározott szerződéseket hozz létre, amelyeket az osztályok és objektumok implementálhatnak vagy követhetnek. Az interfészek segítségével biztosítható, hogy bizonyos struktúrák megtartják a kívánt formát és tartalmaznak minden szükséges tulajdonságot vagy metódust.
+
+<pre>
+interface Mozgathato {
+    sebesseg: number;
+    mozgat(sebesseg: number): void;
+}
+
+interface Rajzolhato {
+    rajzol(): void;
+}
+
+class Auto implements Mozgathato, Rajzolhato {
+    sebesseg: number;
+
+    constructor(sebesseg: number) {
+        this.sebesseg = sebesseg;
+    }
+
+    mozgat(sebesseg: number) {
+        this.sebesseg = sebesseg;
+        console.log(`Az autó sebessége: ${sebesseg} km/h.`);
+    }
+
+    rajzol() {
+        console.log("rajzolás");
+    }
+}
+</pre>
