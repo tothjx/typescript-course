@@ -1,1 +1,4 @@
 ﻿todo/node_modules
+todo/dist
+library-management/node_modules
+library-management/dist
