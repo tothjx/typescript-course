@@ -31,16 +31,15 @@ library-management/
 │   │   └── IUser.ts            # interface a User osztályhoz
 │   │
 │   ├── models/                 # adatmodellek és entitások
-│   │   ├── book.ts             # Book osztály
-│   │   ├── user.ts             # User osztály - kölcsönző entitás
-│   │   └── category.ts         # kategóriák a Book entitásokhoz
+│   │   ├── Book.ts             # Book osztály
+│   │   ├── User.ts             # User osztály - kölcsönző entitás
+│   │   └── Category.ts         # kategóriák a Book entitásokhoz
 │   │
 │   ├── services/                # Üzleti logika és szolgáltatások
-│   │   ├── library.ts           # Könyvtár kezelő osztály
-│   │   └── loanManager.ts       # Kölcsönzési logika generikus osztály
+│   │   └── Library.ts           # Könyvtár kezelő osztály
 │   │
 │   ├── utils/                   # Segédeszközök és hasznos funkciók
-│   │   ├── util.ts              # util namespace
+│   │   ├── Util.ts              # util namespace
 │   │   └── typeGuards.ts        # Típusőrök a dinamikus típusellenőrzéshez
 │   │
 │   └── index.ts                 # entry point

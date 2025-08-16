@@ -2,39 +2,36 @@ import { Category as cat} from "./models/Category";
 import { Book } from "./models/Book";
 import { User } from "./models/User";
 import { Library } from "./services/libary";
+import { util as u} from "./utils/util"
 
-const LINE = '----------------------------------------------------------------';
 // konyvtar
 const lib = new Library();
 
-function line() {console.log(LINE);}
-
 // felhasznalok - ebben a kontextusban kolcsonzo szemelyek
-let user1 = new User(1, 'Szabó János', 'szabo.janos@semmise.hu');
-let user2 = new User(2, 'Nagy Éva', 'nagy.eva@semmise.hu');
-let user3 = new User(3, 'Kis Eszter');
-let user4 = new User(3, 'Kovács József');
+const user1 = new User(1, 'Szabó János', 'szabo.janos@semmise.hu');
+const user2 = new User(2, 'Nagy Éva', 'nagy.eva@semmise.hu');
+const user3 = new User(3, 'Kis Eszter');
+const user4 = new User(4, 'Kovács József');
 
 // konyvek
-let book01 = new Book( 1, 'Anyegin', 'Alekszandr Szergejevics Puskin', cat.LiteraryFiction);
-let book02 = new Book( 2, 'Sötét angyal', 'Moldova György', cat.LiteraryFiction);
-let book03 = new Book( 3, 'Méhednek gyümölcse', 'Moldova György', cat.LiteraryFiction);
-let book04 = new Book( 4, 'Negyven prédikátor', 'Moldova György', cat.LiteraryFiction);
-let book05 = new Book( 5, 'Az apáca', 'Denis Diderot', cat.LiteraryFiction);
-let book06 = new Book( 6, 'Decameron', 'Giovanni Boccaccio', cat.LiteraryFiction);
-let book07 = new Book( 7, 'Sorstalanság', 'Kertész Imre', cat.Biography);
-let book08 = new Book( 8, 'Vaják sorozat (1-8)', 'Andrzej Sapkowski', cat.Fantasy);
-let book09 = new Book( 9, 'A dűne', 'Frank Herbert', cat.ScienceFiction);
-let book10 = new Book(10, 'KEEC - A Nagy Világ-Regatta', 'J. T. Chipendale', cat.ScienceFiction);
-let book11 = new Book(11, 'A kapitány lánya', 'Alekszandr Szergejevics Puskin', cat.LiteraryFiction);
-let book12 = new Book(12, 'Korunk hőse', 'Mihail Jurjevics Lermontov', cat.LiteraryFiction);
-let book14 = new Book(13, 'Winnetou (1-4)', 'Karl May', cat.HistoricalFiction);
-let book15 = new Book(14, 'A fáraó átka', 'Ráth-Végh István', cat.Culture);
-let book13 = new Book(15, 'A méh', 'Báró Ambrózy Béla', cat.Science);
-let book16 = new Book(16, 'JavaScript - The Definitive Guide', 'David Flanagan', cat.Science);
+const book01 = new Book(1, 'Anyegin', 'Alekszandr Szergejevics Puskin', cat.LiteraryFiction);
+const book02 = new Book(2, 'Sötét angyal', 'Moldova György', cat.LiteraryFiction);
+const book03 = new Book(3, 'Méhednek gyümölcse', 'Moldova György', cat.LiteraryFiction);
+const book04 = new Book(4, 'Negyven prédikátor', 'Moldova György', cat.LiteraryFiction);
+const book05 = new Book(5, 'Az apáca', 'Denis Diderot', cat.LiteraryFiction);
+const book06 = new Book(6, 'Decameron', 'Giovanni Boccaccio', cat.LiteraryFiction);
+const book07 = new Book(7, 'Sorstalanság', 'Kertész Imre', cat.Biography);
+const book08 = new Book(8, 'Vaják sorozat (1-8)', 'Andrzej Sapkowski', cat.Fantasy);
+const book09 = new Book(9, 'A dűne', 'Frank Herbert', cat.ScienceFiction);
+const book10 = new Book(10, 'KEEC - A Nagy Világ-Regatta', 'J. T. Chipendale', cat.ScienceFiction);
+const book11 = new Book(11, 'A kapitány lánya', 'Alekszandr Szergejevics Puskin', cat.LiteraryFiction);
+const book12 = new Book(12, 'Korunk hőse', 'Mihail Jurjevics Lermontov', cat.LiteraryFiction);
+const book13 = new Book(15, 'A méh', 'Báró Ambrózy Béla', cat.Science);
+const book14 = new Book(13, 'Winnetou (1-4)', 'Karl May', cat.HistoricalFiction);
+const book15 = new Book(14, 'A fáraó átka', 'Ráth-Végh István', cat.Culture);
+const book16 = new Book(16, 'JavaScript - The Definitive Guide', 'David Flanagan', cat.Science);
 
-line();
-// konyvek hozzaadasa a konyvtarhoz
+u.section('Könyvek hozzáadása a könyvtárhoz:');
 lib.addBook(book01);
 lib.addBook(book02);
 lib.addBook(book03);
@@ -51,77 +48,72 @@ lib.addBook(book13);
 lib.addBook(book14);
 lib.addBook(book15);
 lib.addBook(book16);
-line();
 
-// kolcsonzok hozzaadasa a konyvtarhoz
+// itt keresünk mert később kikölcsönzik a könyveket
+u.section('Könyv(ek) keresése szerző alapján:');
+console.log('Könyv(ek) keresése szerző alapján: "moldova"');
+lib.renderBooksDetails(lib.findBooksByAuthor('moldova'));
+console.log('Könyv(ek) keresése szerző alapján: "puskin"');
+lib.renderBooksDetails(lib.findBooksByAuthor('puskin'));
+
+u.section('Könyv(ek) keresése cím alapján:');
+console.log('Könyv(ek) keresése cím alapján: "negyven"');
+lib.renderBooksDetails(lib.findBooksByTitle('negyven'));
+console.log('Könyv(ek) keresése cím alapján: "decameron"');
+lib.renderBooksDetails(lib.findBooksByTitle('decameron'));
+
+u.section('Kölcsönző fellhasználók hozzáadása a könyvtárhoz:');
 lib.addUser(user1);
 lib.addUser(user2);
 lib.addUser(user3);
 lib.addUser(user4);
-line();
 
-lib.listBooks();
-/*
-import { Book } from "./models/Book";
-import { Borrower } from "./models/User";
-import { Fiction, NonFiction } from "./models/Category";
-import { Library } from "./services/libary";
+u.section('Könyvtárban lévő könyvek listázása:');
+lib.renderBookList();
 
-const library = new Library();
+u.section('Könyvek kölcsönzése:');
+lib.borrowBook(1, 1);
+lib.borrowBook(2, 1);
+lib.borrowBook(3, 1);
+lib.borrowBook(4, 2);
+lib.borrowBook(5, 3);
+lib.borrowBook(6, 4);
 
-// Kategóriák létrehozása
-const fictionCategory = new Fiction("Fiction", "Novel");
-const nonFictionCategory = new NonFiction("Non-Fiction", "History");
+u.section('Könyvtárban lévő könyvek listázása (kölcsönzés után):');
+lib.renderBookList();
 
-// Könyvek létrehozása a megfelelő kategóriával
-const book1: Book = { 
-  id: 1, 
-  title: "The Great Gatsby", 
-  author: "F. Scott Fitzgerald", 
-  category: fictionCategory // Fiction példány
-};
+u.section('Kísérlet nem létező könyvek kölcsönzésére:');
+lib.borrowBook(1, 2);
+lib.borrowBook(2, 3);
 
-const book2: Book = { 
-  id: 2, 
-  title: "War and Peace", 
-  author: "Leo Tolstoy", 
-  category: fictionCategory // Esetleg másik kategória példányát is használhatnánk
-};
+u.section('Kölcsönzött könyvek listázása:');
+lib.renderBookList('loans');
 
-// Kölcsönzők létrehozása
-const borrower1: Borrower = { id: 1, name: "John Doe" };
-const borrower2: Borrower = { id: 2, name: "Jane Doe" };
+u.section('Könyvek törlése az állományból:');
+lib.removeBook(13);
+lib.removeBook(14);
+lib.removeBook(15);
+lib.removeBook(16);
 
-// Könyvek hozzáadása a könyvtárhoz
-library.addBook(book1);
-library.addBook(book2);
+u.section('Könyvtárban lévő könyvek listázása (törlések után):');
+lib.renderBookList();
 
-// Kölcsönzők hozzáadása a könyvtárhoz
-library.addBorrower(borrower1);
-library.addBorrower(borrower2);
+u.section('Könyvek visszaadása:');
+lib.returnBook(1);
+lib.returnBook(2);
 
-// Könyvek kölcsönzése
-library.borrowBook(1, 1); // John Doe kölcsönzi "The Great Gatsby"-t
-library.borrowBook(2, 2); // Jane Doe kölcsönzi "War and Peace"-t
+u.section('Könyvtárban lévő könyvek listázása (könyvek visszaadása után):');
+lib.renderBookList();
 
-// Kölcsönzött könyvek listázása
-console.log("Kölcsönzött könyvek:");
-library.listBorrowedBooks().forEach(book => console.log(`- ${book.title} by ${book.author}`));
+u.section('Kölcsönzött könyvek listázása (könyvek visszaadása után):');
+lib.renderBookList('loans');
 
-// Egy könyv visszavitel
-library.returnBook(1);
-console.log("Visszavitel után kölcsönzött könyvek:");
-library.listBorrowedBooks().forEach(book => console.log(`- ${book.title} by ${book.author}`));
+u.section('Kölcsönzők adatai:');
+lib.renderUserDetails(1);
+lib.renderUserDetails(2);
+lib.renderUserDetails(3);
+lib.renderUserDetails(4);
 
-// Könyv keresése cím alapján
-console.log("Keresés 'War' címszóra:");
-library.findBooksByTitle("War").forEach(book => console.log(`- ${book.title} by ${book.author}`));
-
-// Kölcsönző adatainak lekérdezése
-console.log("Kölcsönző adatai (ID: 1):");
-const borrowerDetails = library.getBorrowerDetails(1);
-if (borrowerDetails) {
-  console.log(`Név: ${borrowerDetails.name}`);
-}
-*/
-
+u.section('Kísérlet nem létező kölcsönző adatainak kinyerésére:');
+lib.renderUserDetails(11);
+lib.renderUserDetails(12);
