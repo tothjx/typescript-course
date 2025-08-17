@@ -26,7 +26,6 @@ export class Library
     {
         this._loans.set(book.id, book);
         this._books.delete(book.id);
-        //console.log(`Item added: ${book.id}`);
     }
 
     addUser(user: User): void
@@ -105,7 +104,8 @@ export class Library
     {
         return this._users.get(userId);
     }
-
+    // beletettem a kiiratast hogy ne legyen tul sok logika az indexben
+    // de ez megneheziti a nem tul tapasztalt fejleszto szamara a tesztelest
     renderBookList(listType: string = 'books'): void
     {
         let books = (listType == 'loans') ? this.listLoans() : this.listBooks();

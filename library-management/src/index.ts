@@ -1,7 +1,7 @@
 import { Category as cat} from "./models/Category";
 import { Book } from "./models/Book";
 import { User } from "./models/User";
-import { Library } from "./services/libary";
+import { Library } from "./services/Libary";
 import { util as u} from "./utils/util"
 
 // konyvtar
