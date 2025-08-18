@@ -1,0 +1,25 @@
+{
+    "name": "dic",
+    "version": "1.0.0",
+    "description": "dictionary",
+    "author": {
+        "name": "tothj",
+        "email": "info@tothj.com"
+    },
+    "scripts": {
+        "start": "ts-node src/index.ts",
+        "test": "jest",
+        "build": "npx tsc",
+        "dev": "tsc --watch"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "jest": "^29.7.0",
+        "ts-jest": "^29.1.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    },
+    "dependencies": {
+        "table": "^6.9.0"
+    }
+}
