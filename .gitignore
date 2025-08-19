@@ -4,3 +4,5 @@ library-management/node_modules
 library-management/dist
 dic/dist
 dic/node_modules
+vizsga/dist
+vizsga/node_modules
