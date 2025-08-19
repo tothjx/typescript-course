@@ -10,5 +10,8 @@ import { Dictionary } from "./services/Dictionary";
     // console.log(dic.search('fuck', Lang.en));
     // dic.searchRender('app');
     // dic.searchRender('körte', Lang.hu);
-    dic.searchRender('néz', Lang.hu);
+    // dic.searchRender('néz', Lang.hu);
+    // dic.searchSimpleRender('körte', Lang.hu);
+    dic.searchSimpleRender('állhat', Lang.hu);
+    
 })();

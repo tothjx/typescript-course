@@ -49,6 +49,14 @@ export class Dictionary
         console.log(table(tableData, cfg.tableConfig));
     }
 
+    public searchSimpleRender(word: string, lang: Lang = Lang.en, where: Where = Where.middle): void
+    {
+        const isEn: boolean = lang === Lang.en;
+        const results: Record[] = this._getResults(word, lang, where);
+
+        console.table(results);
+    }
+
     public get data(): Record[]
     {
         return this._dic;

@@ -1,4 +1,57 @@
+import { Record } from "./models/Record";
+import { Lang } from "./models/Lang";
+import { Where } from "./models/Where";
+import { Dictionary } from "./services/Dictionary";
+import mockData from './__mocks__/sampleData.json';
+
+describe('Dictionary', () => {
+    let dic: Dictionary;
+
+    beforeEach(() => {
+        dic = new Dictionary();
+
+        // sampleData 64 record-al
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(mockData)
+            })
+        ) as jest.Mock;
+    });
+
+    test('init utan van dic.data', async () => {
+        await dic.init();
+        const data = dic.data;
+
+        expect(data.length).toBe(64);
+        expect(Array.isArray(data)).toBe(true);
+        expect(data.length).toBe(mockData.length);
+        expect(data[0]).toEqual(mockData[0]);
+    });
+
+    test('kereses hoz talalatot (angol szora)', async () => {
+        await dic.init();
+        const data = dic.search('accomplished');
+
+        expect(data.length).toBeGreaterThan(0);
+        expect(Array.isArray(data)).toBe(true);;
+    });
+
+    test('kereses hoz talalatot (magyar szora)', async () => {
+        await dic.init();
+        const data = dic.search('állhat', Lang.hu, Where.middle);
+
+        expect(data.length).toBeGreaterThan(0);
+        expect(Array.isArray(data)).toBe(true);;
+    });
+});
+
 /*
+// async/await
+test('adataj visszatérítése', async () => {
+  const data = await fetchData();
+  expect(data).toBe('freeCodeCamp');
+});
+
 describe('Library', () => {
     let lib: Library;
 
@@ -6,42 +59,6 @@ describe('Library', () => {
         lib = new Library();
     });
 
-    // konyvek
-    const book1: Book = {
-        id: 1,
-        title: 'Anyegin',
-        author: 'Alekszandr Szergejevics Puskin',
-        category: cat.LiteraryFiction
-    };
-    const book2: Book = {
-        id: 2,
-        title: 'Sötét angyal',
-        author: 'Moldova György',
-        category: cat.LiteraryFiction
-    };
-    const book3: Book = {
-        id: 3,
-        title: 'Méhednek gyümölcse',
-        author: 'Moldova György',
-        category: cat.LiteraryFiction
-    };
-    const book4: Book = {id: 4,
-        title: 'Negyven prédikátor',
-        author: 'Moldova György',
-        category: cat.LiteraryFiction
-    };
-
-    // kolcsonzok
-    const user1: User = {
-        id: 1,
-        name: 'Kelemen Éva',
-        email: 'eva@kelemencsalad.hh'
-    };
-    const user2: User = {
-        id: 2,
-        name: 'Kelemen Benedek',
-        email: 'benedek@kelemencsalad.hh'
-    };
 
     test('addBook hozzadja a book-ot a library-hoz', () => {
         lib.addBook(book1);
