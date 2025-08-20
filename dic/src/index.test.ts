@@ -18,7 +18,7 @@ describe('Dictionary', () => {
         ) as jest.Mock;
     });
 
-    test('init utan van dic.data', async () => {
+    test('init utan elerheto a dic.data', async () => {
         await dic.init();
         const data = dic.data;
 

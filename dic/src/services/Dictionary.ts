@@ -1,8 +1,8 @@
+import { table } from 'table';
 import { config as cfg } from "../utils/config";
 import { Lang } from "../models/Lang";
 import { Where } from "../models/Where";
 import { Record } from "../models/Record";
-import { table } from 'table';
 
 export class Dictionary
 {
