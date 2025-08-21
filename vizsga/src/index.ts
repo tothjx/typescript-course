@@ -3,7 +3,7 @@ import { User } from "./models/User";
 import { Event } from "./models/Event";
 import { Reg } from "./models/Reg";
 import { EventReg } from "./services/EventReg";
-import { config as cfg } from "./utils/config";
+// import { config as cfg } from "./utils/config";
 
 let er = new EventReg();
 
