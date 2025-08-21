@@ -97,7 +97,7 @@ export class EventReg
      */
     public getEventsByCategory(category: Category): Event[]
     {
-        return this._events.filter(event => event.category == category);
+        return this._events.filter(event => event.category === category);
     }
 
     // ezek csak a getterek demonstralasara lesznek itt
@@ -116,5 +116,4 @@ export class EventReg
     {
         return this._registrations;
     }
-
 }
