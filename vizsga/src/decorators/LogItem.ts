@@ -7,7 +7,7 @@ export function LogItem
 {
     let originalMethod = descriptor.value;
     descriptor.value = function(...args: any[]) {
-        console.log(`új könyv került a könyvtár állományába`);
+        console.log(`új felhasználó hozzáadva`);
         originalMethod.apply(this, args);
     }
 

@@ -27,15 +27,15 @@ export class EventReg
      */
     public addUser(user: User): void
     {
-        //
+        this._users.push(user);
     }
 
     /**
      * resztvevo torlese
      */
-    public delUser(id: number): void
+    public delUserById(id: number): void
     {
-        //
+        this._users = this._users.filter(user => user.id !== id);
     }
 
     /**
@@ -44,23 +44,28 @@ export class EventReg
     @LogItem
     public addEvent(event: Event): void
     {
-        //
+        this._events.push(event);
     }
 
     /**
      * esemeny torlese
      */
-    public delEvent(): void
+    public delEventById(id: number): void
     {
-        //
+        this._events = this._events.filter(event => event.id !== id);
     }
 
     /**
      * felhasznalo regisztralasa az esemenyhez
      */
-    public registrateUserToEvent(idUser: number, idEvent: number): void
+    public addReg(reg: Reg): void
     {
-        //
+        this._registrations.push(reg);
+    }
+
+    public delRegById(id: number): void
+    {
+        this._registrations = this._registrations.filter(reg => reg.id !== id);
     }
 
     /**
@@ -94,4 +99,22 @@ export class EventReg
     {
         return this._events.filter(event => event.category == category);
     }
+
+    // ezek csak a getterek demonstralasara lesznek itt
+
+    get users(): User[]
+    {
+        return this._users;
+    }
+
+    get events(): Event[]
+    {
+        return this._events;
+    }
+
+    get registrations(): Reg[]
+    {
+        return this._registrations;
+    }
+
 }
